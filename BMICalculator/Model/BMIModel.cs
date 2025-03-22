@@ -16,10 +16,9 @@ namespace BMICalculator.Models
             get => _weight;
             set
             {
-                if (value <= 0) throw new ArgumentException("體重必須大於 0");
+                if (value < 0) throw new ArgumentException("體重不能為負數");
                 _weight = value;
                 OnPropertyChanged(nameof(Weight));
-                CalculateBMI();
             }
         }
 
@@ -28,29 +27,19 @@ namespace BMICalculator.Models
             get => _height;
             set
             {
-                if (value <= 0) throw new ArgumentException("身高必須大於 0");
+                if (value < 0) throw new ArgumentException("身高不能為負數");
                 _height = value;
                 OnPropertyChanged(nameof(Height));
-                CalculateBMI();
             }
         }
 
         public double BMI
         {
             get => _bmi;
-            private set
+            set
             {
                 _bmi = value;
                 OnPropertyChanged(nameof(BMI));
-            }
-        }
-
-        private void CalculateBMI()
-        {
-            if (_weight > 0 && _height > 0)
-            {
-                double heightInMeters = _height / 100.0;
-                BMI = _weight / (heightInMeters * heightInMeters);
             }
         }
 
